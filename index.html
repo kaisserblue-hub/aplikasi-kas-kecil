@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Kas Kecil - PT BMKP & PT BMKU</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-box">
+                <h1>📊 Aplikasi Kas Kecil</h1>
+                <p class="subtitle">PT BMKP & PT BMKU</p>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required placeholder="masukkan email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required placeholder="masukkan password">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                
+                <div class="demo-users">
+                    <p><strong>Demo User (Untuk Testing):</strong></p>
+                    <p>👤 Kasir: kasir@bmkp.com | password123</p>
+                    <p>✅ Direktur: direktur@bmkp.com | password123</p>
+                    <p>🔍 Admin: admin@bmkp.com | password123</p>
+                </div>
+                
+                <div id="loginError" class="error-message" style="display:none;"></div>
+            </div>
+        </div>
+    </body>
+</div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="page">
+        <div class="navbar">
+            <div class="navbar-left">
+                <h2>📊 Aplikasi Kas Kecil</h2>
+                <span id="userInfo"></span>
+            </div>
+            <div class="navbar-right">
+                <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <nav class="menu">
+                <button class="menu-item active" data-page="dashboard-content">📊 Dashboard</button>
+                <button class="menu-item" data-page="pemasukan">➕ Pemasukan</button>
+                <button class="menu-item" data-page="pengeluaran">➖ Pengeluaran</button>
+                <button class="menu-item" data-page="persetujuan" id="persetujuanMenu">✅ Persetujuan</button>
+                <button class="menu-item" data-page="laporan">📋 Laporan</button>
+                <button class="menu-item" data-page="riwayat">📜 Riwayat</button>
+                <button class="menu-item" data-page="admin" id="adminMenu">🔍 Admin</button>
+            </nav>
+        </div>
+
+        <div class="main-content">
+            <!-- Dashboard Content -->
+            <div id="dashboard-content" class="content active">
+                <div class="page-header">
+                    <h2>Dashboard</h2>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card saldo-card">
+                        <h3>Saldo Kas Kecil</h3>
+                        <div class="saldo-amount" id="saldoAmount">Rp 0</div>
+                        <p class="text-small">Status: <span id="saldoStatus">Normal</span></p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Pemasukan Hari Ini</h3>
+                        <div class="amount income" id="pemasukanHari">Rp 0</div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Pengeluaran Hari Ini</h3>
+                        <div class="amount expense" id="pengeluaranHari">Rp 0</div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Menunggu Persetujuan</h3>
+                        <div class="amount pending" id="menungguPersetujuan">0</div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Cadangan Kas Kecil</h3>
+                        <div class="amount" id="cadanganAmount">Rp 0</div>
+                    </div>
+
+                    <div class="card alert-card" id="notifikasiCard" style="display:none;">
+                        <h3>⚠️ Peringatan</h3>
+                        <p id="notifikasiText">Saldo kas mulai menipis!</p>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <h3>Grafik Pemasukan & Pengeluaran (7 Hari Terakhir)</h3>
+                    <canvas id="grafik7Hari"></canvas>
+                </div>
+            </div>
+
+            <!-- Pemasukan Page -->
+            <div id="pemasukan" class="content">
+                <div class="page-header">
+                    <h2>Pencatatan Pemasukan Kas Kecil</h2>
+                </div>
+
+                <div class="form-container">
+                    <form id="formPemasukan">
+                        <div class="form-group">
+                            <label for="tglPemasukan">Tanggal:</label>
+                            <input type="date" id="tglPemasukan" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nominalPemasukan">Nominal:</label>
+                            <input type="number" id="nominalPemasukan" required placeholder="0" min="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="keteranganPemasukan">Keterangan:</label>
+                            <textarea id="keteranganPemasukan" placeholder="masukkan keterangan"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">💾 Simpan Pemasukan</button>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <h3>Daftar Pemasukan</h3>
+                    <table id="tabelPemasukan">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Nominal</th>
+                                <th>Keterangan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Pengeluaran Page -->
+            <div id="pengeluaran" class="content">
+                <div class="page-header">
+                    <h2>Pencatatan Pengeluaran Dana</h2>
+                </div>
+
+                <div class="form-container">
+                    <form id="formPengeluaran">
+                        <div class="form-group">
+                            <label for="tglPengeluaran">Tanggal:</label>
+                            <input type="date" id="tglPengeluaran" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="kategoriPengeluaran">Kategori:</label>
+                            <select id="kategoriPengeluaran" required>
+                                <option value="">-- Pilih Kategori --</option>
+                                <option value="PT BMKP">PT BMKP</option>
+                                <option value="PT BMKU">PT BMKU</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nominalPengeluaran">Nominal:</label>
+                            <input type="number" id="nominalPengeluaran" required placeholder="0" min="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="keteranganPengeluaran">Keterangan:</label>
+                            <textarea id="keteranganPengeluaran" required placeholder="masukkan keterangan"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">💾 Ajukan Pengeluaran</button>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <h3>Daftar Pengeluaran</h3>
+                    <table id="tabelPengeluaran">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Kategori</th>
+                                <th>Nominal</th>
+                                <th>Keterangan</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Persetujuan Page -->
+            <div id="persetujuan" class="content">
+                <div class="page-header">
+                    <h2>Persetujuan Pengeluaran Dana</h2>
+                </div>
+
+                <div class="table-container">
+                    <h3>Permintaan Persetujuan Pengeluaran</h3>
+                    <table id="tabelPersetujuan">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Kategori</th>
+                                <th>Nominal</th>
+                                <th>Keterangan</th>
+                                <th>Pemohon</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Laporan Page -->
+            <div id="laporan" class="content">
+                <div class="page-header">
+                    <h2>Laporan Kas Kecil</h2>
+                </div>
+
+                <div class="laporan-filter">
+                    <label for="jenisLaporan">Jenis Laporan:</label>
+                    <select id="jenisLaporan">
+                        <option value="harian">Harian</option>
+                        <option value="mingguan">Mingguan</option>
+                        <option value="bulanan">Bulanan</option>
+                    </select>
+
+                    <label for="tglLaporan">Tanggal:</label>
+                    <input type="date" id="tglLaporan">
+
+                    <button id="btnGenerateLaporan" class="btn btn-primary">📊 Generate Laporan</button>
+                    <button id="btnExportPDF" class="btn btn-secondary">📥 Export PDF</button>
+                    <button id="btnExportExcel" class="btn btn-secondary">📥 Export Excel</button>
+                </div>
+
+                <div class="laporan-container" id="laporanContainer"></div>
+            </div>
+
+            <!-- Riwayat Page -->
+            <div id="riwayat" class="content">
+                <div class="page-header">
+                    <h2>Riwayat Transaksi</h2>
+                </div>
+
+                <div class="filter-container">
+                    <input type="date" id="filterTglMulai" placeholder="Dari tanggal">
+                    <input type="date" id="filterTglAkhir" placeholder="Sampai tanggal">
+                    <button id="btnFilterRiwayat" class="btn btn-primary">🔍 Filter</button>
+                </div>
+
+                <div class="table-container">
+                    <h3>Riwayat Lengkap Transaksi</h3>
+                    <table id="tabelRiwayat">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Tipe</th>
+                                <th>Kategori</th>
+                                <th>Nominal</th>
+                                <th>Keterangan</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Admin Page -->
+            <div id="admin" class="content">
+                <div class="page-header">
+                    <h2>Panel Admin - Pemantauan</h2>
+                </div>
+
+                <div class="admin-stats">
+                    <div class="card">
+                        <h4>Total Pengguna</h4>
+                        <p id="totalPengguna" class="stat-number">0</p>
+                    </div>
+                    <div class="card">
+                        <h4>Total Transaksi</h4>
+                        <p id="totalTransaksi" class="stat-number">0</p>
+                    </div>
+                    <div class="card">
+                        <h4>Total Pemasukan</h4>
+                        <p id="totalPemasukanAdmin" class="stat-number">Rp 0</p>
+                    </div>
+                    <div class="card">
+                        <h4>Total Pengeluaran</h4>
+                        <p id="totalPengeluaranAdmin" class="stat-number">Rp 0</p>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <h3>Daftar Semua Pengguna</h3>
+                    <table id="tabelPengguna">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Nama</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Terdaftar</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <div class="table-container">
+                    <h3>Aktivitas Transaksi</h3>
+                    <table id="tabelAktivitas">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Pengguna</th>
+                                <th>Aktivitas</th>
+                                <th>Nominal</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Persetujuan -->
+    <div id="modalPersetujuan" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Konfirmasi Persetujuan Pengeluaran</h3>
+            
+            <div id="detailPengeluaran"></div>
+            
+            <div class="form-group">
+                <label for="catatanPersetujuan">Catatan (opsional):</label>
+                <textarea id="catatanPersetujuan" placeholder="masukkan catatan persetujuan"></textarea>
+            </div>
+            
+            <div class="modal-buttons">
+                <button id="btnSetujui" class="btn btn-success">✅ Setujui</button>
+                <button id="btnTolak" class="btn btn-danger">❌ Tolak</button>
+                <button id="btnBatalModal" class="btn btn-secondary">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifikasi Toast -->
+    <div id="notifikasiToast" class="toast"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
