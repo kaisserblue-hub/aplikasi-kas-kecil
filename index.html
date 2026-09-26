@@ -7,41 +7,38 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Login Page -->
     <div id="loginPage" class="page active">
         <div class="login-container">
             <div class="login-box">
                 <h1>📊 Aplikasi Kas Kecil</h1>
                 <p class="subtitle">PT BMKP & PT BMKU</p>
-                
+
                 <form id="loginForm">
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" required placeholder="masukkan email">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="password">Password:</label>
                         <input type="password" id="password" name="password" required placeholder="masukkan password">
                     </div>
-                    
+
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
-                
+
                 <div class="demo-users">
                     <p><strong>Demo User (Untuk Testing):</strong></p>
                     <p>👤 Kasir: kasir@bmkp.com | password123</p>
                     <p>✅ Direktur: direktur@bmkp.com | password123</p>
                     <p>🔍 Admin: admin@bmkp.com | password123</p>
                 </div>
-                
+
                 <div id="loginError" class="error-message" style="display:none;"></div>
             </div>
         </div>
-    </body>
-</div>
+    </div>
 
-    <!-- Dashboard Page -->
     <div id="dashboardPage" class="page">
         <div class="navbar">
             <div class="navbar-left">
@@ -66,7 +63,6 @@
         </div>
 
         <div class="main-content">
-            <!-- Dashboard Content -->
             <div id="dashboard-content" class="content active">
                 <div class="page-header">
                     <h2>Dashboard</h2>
@@ -111,7 +107,6 @@
                 </div>
             </div>
 
-            <!-- Pemasukan Page -->
             <div id="pemasukan" class="content">
                 <div class="page-header">
                     <h2>Pencatatan Pemasukan Kas Kecil</h2>
@@ -154,7 +149,6 @@
                 </div>
             </div>
 
-            <!-- Pengeluaran Page -->
             <div id="pengeluaran" class="content">
                 <div class="page-header">
                     <h2>Pencatatan Pengeluaran Dana</h2>
@@ -208,7 +202,6 @@
                 </div>
             </div>
 
-            <!-- Persetujuan Page -->
             <div id="persetujuan" class="content">
                 <div class="page-header">
                     <h2>Persetujuan Pengeluaran Dana</h2>
@@ -233,7 +226,6 @@
                 </div>
             </div>
 
-            <!-- Laporan Page -->
             <div id="laporan" class="content">
                 <div class="page-header">
                     <h2>Laporan Kas Kecil</h2>
@@ -258,7 +250,6 @@
                 <div class="laporan-container" id="laporanContainer"></div>
             </div>
 
-            <!-- Riwayat Page -->
             <div id="riwayat" class="content">
                 <div class="page-header">
                     <h2>Riwayat Transaksi</h2>
@@ -288,7 +279,6 @@
                 </div>
             </div>
 
-            <!-- Admin Page -->
             <div id="admin" class="content">
                 <div class="page-header">
                     <h2>Panel Admin - Pemantauan</h2>
@@ -348,19 +338,18 @@
         </div>
     </div>
 
-    <!-- Modal Konfirmasi Persetujuan -->
     <div id="modalPersetujuan" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h3>Konfirmasi Persetujuan Pengeluaran</h3>
-            
+
             <div id="detailPengeluaran"></div>
-            
+
             <div class="form-group">
                 <label for="catatanPersetujuan">Catatan (opsional):</label>
                 <textarea id="catatanPersetujuan" placeholder="masukkan catatan persetujuan"></textarea>
             </div>
-            
+
             <div class="modal-buttons">
                 <button id="btnSetujui" class="btn btn-success">✅ Setujui</button>
                 <button id="btnTolak" class="btn btn-danger">❌ Tolak</button>
@@ -369,10 +358,8 @@
         </div>
     </div>
 
-    <!-- Notifikasi Toast -->
     <div id="notifikasiToast" class="toast"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="config.js"></script>
     <script src="app.js"></script>
 </body>
